@@ -3,12 +3,20 @@ import json
 import urllib.request
 from flask_sqlalchemy import SQLAlchemy
 from test import data_answer
-
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
+import os
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
 db= SQLAlchemy(app)
+
+
+
+
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -19,6 +27,7 @@ class User(db.Model):
     Timing = db.Column(db.Text)
     About = db.Column(db.Text)
     Name = db.Column(db.Text)
+    Profile_pic = db.Column(db.LargeBinary)
     db.create_all()
 
 
@@ -29,7 +38,6 @@ def index():
 
 @app.route("/signup")
 def register_user():
-
     return render_template("sign-up.html", )
 
 @app.route("/players")
@@ -40,6 +48,11 @@ def view_players():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
+@app.route("/upload")
+def load():
+    return render_template("index.html", )
 
 
 global email_id
@@ -72,7 +85,7 @@ def home():
 def log():
     email = request.form['emailer']
     password = request.form['pswrd']
-    user = User(Email=email, Password=password,Age=None, Server = None, Timing = None, About = None, Name=None)
+    user = User(Email=email, Password=password,Age=None, Server = None, Timing = None, About = None, Name=None, Profile_pic=None)
     print("logger")
     existing_user = User.query.filter_by(Email=email).first()
     pasword_checker = User.query.filter_by(Password=password).first()
@@ -98,18 +111,18 @@ def register():
     password = request.form['psw']
     repeat = request.form['psw-repeat']
     user = User(Email=email, Password=password)
-    #print(user)
-    existing_user = User.query.filter_by(Email=email).first()
-    if password != repeat or existing_user is not None:
-        return 'invalid credentials the email used may have already been in use or your repeat and original passswords are different '
-    elif password==repeat:
-        db.create_all()
-        db.session.add(user)
-        db.session.commit()
-        global email_id 
-        email_id = email
-        print("email", email_id)
-        return render_template("home.html",email=email) 
+    print(user)
+    #existing_user = User.query.filter_by(Email=email).first()
+    #if password != repeat or existing_user is not None:
+    #    return 'invalid credentials the email used may have already been in use or your repeat and original passswords are different '
+    #elif password==repeat:
+    db.create_all()
+    db.session.add(user)
+    db.session.commit()
+    global email_id 
+    email_id = email
+    print("email", email_id)
+    return render_template("home.html",email=email) 
 
 
 

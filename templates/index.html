@@ -39,7 +39,23 @@ ul {
   li a:hover:not(.active) {
     background-color: #111;
   }
-
+  .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px; 
+      background: #3263cd;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #5b82d7;
+      }
 
 </style>
 <div class="container">
@@ -73,5 +89,12 @@ ul {
                 </div>
             </div>
         </div>
+        <form method="POST" action="/upload" >
+            <label for="inputFile">Upload an profile pic</label>
+            <input type = "file" name="inputFile" accept="image/*" required>
+
+            <button> Upload! </button>
+        </form>
     </div>
+
 </div>
