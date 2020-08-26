@@ -112,17 +112,17 @@ def register():
     repeat = request.form['psw-repeat']
     user = User(Email=email, Password=password)
     print(user)
-    #existing_user = User.query.filter_by(Email=email).first()
-    #if password != repeat or existing_user is not None:
-    #    return 'invalid credentials the email used may have already been in use or your repeat and original passswords are different '
-    #elif password==repeat:
-    db.create_all()
-    db.session.add(user)
-    db.session.commit()
-    global email_id 
-    email_id = email
-    print("email", email_id)
-    return render_template("home.html",email=email) 
+    existing_user = User.query.filter_by(Email=email).first()
+    if password != repeat or existing_user is not None:
+        return 'invalid credentials the email used may have already been in use or your repeat and original passswords are different '
+    elif password==repeat:
+        db.create_all()
+        db.session.add(user)
+        db.session.commit()
+        global email_id 
+        email_id = email
+        print("email", email_id)
+        return render_template("home.html",email=email) 
 
 
 
@@ -154,7 +154,6 @@ def collector():
     server = request.form['servers']
     about = request.form['about']
     name = request.form['name']
-    #user = User(Email=None, Age = None, Server=None, Timing=None, About=None )
     user = User.query.filter_by(Email=email).first()
     user.Age = bday
     user.Server = server
