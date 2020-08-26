@@ -6,6 +6,7 @@ from test import data_answer
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 import os
+import mailer
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
@@ -116,6 +117,7 @@ def register():
     if password != repeat or existing_user is not None:
         return 'invalid credentials the email used may have already been in use or your repeat and original passswords are different '
     elif password==repeat:
+        mailer.deliver.deliver_process(email)
         db.create_all()
         db.session.add(user)
         db.session.commit()
@@ -138,6 +140,7 @@ def data():
     if password != repeat or existing_user is not None:
         return 'invalid credentials the email used may have already been in use or your repeat and original passswords are different '
     elif password==repeat:
+
         db.create_all()
         db.session.add(user)
         db.session.commit()
@@ -167,6 +170,7 @@ def collector():
     email_id = email
     print("email44", email_id)
     return render_template("index.html", email=email,bday=bday,time=time,server=server,about=about,name=name)
+
 
 
 

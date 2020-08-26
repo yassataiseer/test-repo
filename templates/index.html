@@ -77,7 +77,7 @@ ul {
                         <small>{{time}}<i class="glyphicon glyphicon-map-marker">
                         </i></small>
                         <p>
-                            <i class="glyphicon glyphicon-envelope"></i>{{email}}
+                            <i class="glyphicon glyphicon-envelope" name ="email"></i>{{email}}
                             <br />
                             <i class="glyphicon glyphicon-globe"></i>{{server}}
                             <br />
@@ -89,12 +89,8 @@ ul {
                 </div>
             </div>
         </div>
-        <form method="POST" action="/upload" >
-            <label for="inputFile">Upload an profile pic</label>
-            <input type = "file" name="inputFile" accept="image/*" required>
 
-            <button> Upload! </button>
-        </form>
+
     </div>
 
 </div>

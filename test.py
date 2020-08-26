@@ -21,8 +21,8 @@ class data_answer:
             bday = rows[3]
             server = rows[4]
             timing = rows[5]
-            name = rows[-1]
-            about = rows[-2]
+            name = rows[-2]
+            about = rows[-3]
             minor_data.append(name)
             minor_data.append(timing)
             minor_data.append(email)
